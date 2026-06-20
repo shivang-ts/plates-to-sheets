@@ -42,7 +42,7 @@ Use **Switch platform** in the header to change between Swiggy and Zomato. Click
 
 ## CSV columns
 
-`order_id`, `order_status`, `placed_time`, `ordered_time`, `pickedup_time`, `food_prep_time`, `delivered_time`, `customer_id`, `customer_name`, `customer_area`, `customer_distance_km`, `rtr`, `ntr`, `customer_order_count`, `items_summary`, `item_count`, `bill`, `discount`, `bill total`, `REV`, `packing_charge`, `delivery_partner`, `channel`, `offer_description`
+`order_id`, `order_status`, `placed_time`, `ordered_time`, `pickedup_time`, `food_prep_time`, `delivered_time`, `customer_id`, `customer_name`, `customer_area`, `customer_distance_km`, `rtr`, `ntr`, `customer_order_count`, `items_summary`, `item_variants`, `item_count`, `bill`, `discount`, `bill total`, `REV`, `packing_charge`, `delivery_partner`, `channel`, `offer_description`
 
 ## Troubleshooting
 
