@@ -80,13 +80,3 @@ content/               — per-platform credential capture
 ## Privacy
 
 Order data is fetched from Swiggy/Zomato APIs using your browser session and processed locally. Nothing is sent to third-party servers. See `help/help.html` for more detail.
-
-## Git hooks (optional)
-
-To block Cursor co-author lines from ever landing in commits:
-
-```bash
-git config core.hooksPath .githooks
-```
-
-Also turn off **Cursor Settings → Agents → Attribution → Commit Attribution**.
