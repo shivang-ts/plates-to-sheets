@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Partner Orders Exporter — Help</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 24px;
+      color: #1a1a1a;
+      line-height: 1.5;
+    }
+    h1 { font-size: 20px; margin-bottom: 8px; }
+    h2 { font-size: 15px; margin-top: 24px; }
+    p, li { font-size: 14px; }
+    .disclaimer { font-size: 12px; color: #666; margin-top: 32px; }
+  </style>
+</head>
+<body>
+  <h1>Partner Orders Exporter — Help</h1>
+  <p>Export order history from Swiggy Partner or Zomato Partner to CSV on your computer.</p>
+
+  <h2>Getting started</h2>
+  <ol>
+    <li>Choose <strong>Swiggy</strong> or <strong>Zomato</strong> in the extension popup.</li>
+    <li>Click <strong>Open Partner Dashboard</strong> and log in if needed.</li>
+    <li>Stay on the dashboard for a few seconds so your session is captured.</li>
+    <li>Re-open the popup — status should show <strong>Logged in</strong>.</li>
+    <li>Click <strong>Fetch &amp; Export CSV</strong>.</li>
+  </ol>
+
+  <h2>During export</h2>
+  <ul>
+    <li>A progress bar shows the current step (loading history, order details, customer info).</li>
+    <li>Click <strong>Cancel export</strong> to stop — no file is saved if you cancel mid-way.</li>
+    <li>Large date ranges may take several minutes on Zomato (one API call per order).</li>
+  </ul>
+
+  <h2>Swiggy tips</h2>
+  <ul>
+    <li>Use the <code>/food</code> dashboard after login.</li>
+    <li>If capture fails, paste <code>access_token</code> and <code>restaurantId</code> under Manual credentials (from DevTools → Network on any <code>rms.swiggy.com</code> request).</li>
+  </ul>
+
+  <h2>Zomato tips</h2>
+  <ul>
+    <li>Select the correct outlet on the partner dashboard before exporting.</li>
+    <li>Restaurant ID should look like <code>22737520</code> (not a long timestamp).</li>
+    <li>Date range defaults to <strong>today only</strong>; change start/end dates to export a wider range.</li>
+    <li>After reloading the extension, refresh any open partner tabs.</li>
+  </ul>
+
+  <h2>Troubleshooting</h2>
+  <ul>
+    <li><strong>Not logged in</strong> — Open the partner dashboard again and wait a few seconds.</li>
+    <li><strong>Access denied / wrong outlet</strong> — Switch to the correct restaurant in the partner app.</li>
+    <li><strong>No orders</strong> — Try a wider date range (Zomato) or confirm orders exist in the dashboard.</li>
+    <li><strong>Extension context invalidated</strong> — Reload the extension, then refresh partner tabs.</li>
+  </ul>
+
+  <p class="disclaimer">
+    Not affiliated with or endorsed by Swiggy or Zomato. Order data is processed locally on your device and is not sent to third-party servers.
+  </p>
+</body>
+</html>

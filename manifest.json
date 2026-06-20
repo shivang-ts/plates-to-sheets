@@ -1,0 +1,67 @@
+{
+  "manifest_version": 3,
+  "name": "Partner Orders Exporter",
+  "version": "2.2.0",
+  "description": "Export order history from Swiggy Partner and Zomato Partner to CSV",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "permissions": ["storage", "tabs", "downloads", "webRequest", "cookies"],
+  "host_permissions": [
+    "https://partner.swiggy.com/*",
+    "https://rms.swiggy.com/*",
+    "https://www.zomato.com/*",
+    "https://zomato.com/*",
+    "http://zomato.com/*",
+    "https://api.zomato.com/*"
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Partner Orders Exporter",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://partner.swiggy.com/*"],
+      "js": ["content/injected.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://partner.swiggy.com/*"],
+      "js": ["content/swiggy-content.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://www.zomato.com/*",
+        "https://zomato.com/*",
+        "http://zomato.com/*",
+        "http://www.zomato.com/*"
+      ],
+      "js": ["content/zomato-injected.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "https://www.zomato.com/*",
+        "https://zomato.com/*",
+        "http://zomato.com/*",
+        "http://www.zomato.com/*"
+      ],
+      "js": ["content/zomato-content.js"],
+      "run_at": "document_start"
+    }
+  ]
+}

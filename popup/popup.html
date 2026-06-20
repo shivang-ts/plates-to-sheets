@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Partner Orders Exporter</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 id="app-title">Partner Orders</h1>
+      <p id="app-subtitle" class="subtitle">Order history export</p>
+      <div class="header-actions">
+        <button id="switch-platform-btn" class="link-btn hidden" type="button">Switch platform</button>
+        <button id="help-btn" class="link-btn" type="button">Help</button>
+      </div>
+    </header>
+
+    <section id="platform-section">
+      <p class="section-label">Choose a platform</p>
+      <div class="platform-grid">
+        <button id="select-swiggy-btn" class="platform-card platform-card--swiggy" type="button">
+          <span class="platform-card__name">Swiggy</span>
+          <span class="platform-card__hint">Partner dashboard</span>
+        </button>
+        <button id="select-zomato-btn" class="platform-card platform-card--zomato" type="button">
+          <span class="platform-card__name">Zomato</span>
+          <span class="platform-card__hint">Partner dashboard</span>
+        </button>
+      </div>
+    </section>
+
+    <section id="auth-section" class="hidden">
+      <div id="auth-status" class="status status--unknown">
+        <span class="status-dot"></span>
+        <span id="auth-status-text">Checking login status…</span>
+      </div>
+
+      <button id="login-btn" class="btn btn--primary" type="button">Open Partner Dashboard</button>
+
+      <details class="manual-auth">
+        <summary>Manual credentials</summary>
+
+        <div id="swiggy-manual" class="manual-fields hidden">
+          <label for="swiggy-token-input">Access Token</label>
+          <input id="swiggy-token-input" type="text" placeholder="Paste access_token" autocomplete="off" />
+          <label for="swiggy-restaurant-input">Restaurant ID</label>
+          <input id="swiggy-restaurant-input" type="text" placeholder="e.g. 1381814" autocomplete="off" />
+        </div>
+
+        <div id="zomato-manual" class="manual-fields hidden">
+          <label for="zomato-res-input">Restaurant ID (res_Id)</label>
+          <input id="zomato-res-input" type="text" placeholder="e.g. 22737520" autocomplete="off" />
+          <label for="zomato-csrf-input">CSRF (x-zomato-csrft)</label>
+          <input id="zomato-csrf-input" type="text" placeholder="Optional if logged in via browser" autocomplete="off" />
+          <label for="zomato-mx-csrf-input">MX CSRF (x-zomato-mx-csrf-token)</label>
+          <input id="zomato-mx-csrf-input" type="text" placeholder="Optional if logged in via browser" autocomplete="off" />
+        </div>
+
+        <button id="save-manual-btn" class="btn btn--secondary" type="button">Save Credentials</button>
+      </details>
+    </section>
+
+    <section id="fetch-section" class="hidden">
+      <p id="restaurant-info" class="info-text"></p>
+
+      <div id="zomato-date-fields" class="hidden">
+        <label for="zomato-start-date" class="field-label">Start date</label>
+        <input id="zomato-start-date" type="date" />
+        <label for="zomato-end-date" class="field-label">End date</label>
+        <input id="zomato-end-date" type="date" />
+      </div>
+
+      <button id="fetch-btn" class="btn btn--primary" type="button">Fetch &amp; Export CSV</button>
+      <button id="logout-btn" class="btn btn--ghost" type="button">Clear credentials</button>
+
+      <div id="export-progress" class="export-progress hidden" aria-live="polite">
+        <p id="export-progress-text" class="export-progress__text">Preparing export…</p>
+        <div class="export-progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="export-progress-bar" class="export-progress__bar"></div>
+        </div>
+        <button id="cancel-export-btn" class="btn btn--ghost btn--small" type="button">Cancel export</button>
+      </div>
+    </section>
+
+    <div id="message" class="message hidden" role="alert"></div>
+  </div>
+
+  <script src="popup.js" type="module"></script>
+</body>
+</html>
