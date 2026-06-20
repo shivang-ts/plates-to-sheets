@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Partner Orders Exporter",
-  "version": "2.2.0",
-  "description": "Export order history from Swiggy Partner and Zomato Partner to CSV",
+  "name": "Plates to Sheets",
+  "version": "2.2.1",
+  "description": "Export Swiggy & Zomato partner order history from plates to spreadsheets (CSV)",
   "icons": {
     "16": "icons/icon-16.png",
     "48": "icons/icon-48.png",
@@ -19,7 +19,7 @@
   ],
   "action": {
     "default_popup": "popup/popup.html",
-    "default_title": "Partner Orders Exporter",
+    "default_title": "Plates to Sheets",
     "default_icon": {
       "16": "icons/icon-16.png",
       "48": "icons/icon-48.png",

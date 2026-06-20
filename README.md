@@ -1,6 +1,6 @@
-# Partner Orders Exporter
+# Plates to Sheets
 
-Chrome extension to export order history from **Swiggy Partner** and **Zomato Partner** to CSV.
+Chrome extension to export order history from **Swiggy Partner** and **Zomato Partner** to CSV — from plates to spreadsheets.
 
 ## Install
 

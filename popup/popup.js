@@ -95,8 +95,8 @@ function applyTheme(platformId) {
   document.documentElement.style.setProperty("--brand-primary-hover", theme.primaryHover);
   document.documentElement.style.setProperty("--brand-primary-light", theme.primaryLight);
   document.documentElement.style.setProperty("--brand-header", theme.header);
-  appTitle.textContent = `${platform.name} Orders`;
-  appSubtitle.textContent = `${platform.name} partner order export`;
+  appTitle.textContent = "Plates to Sheets";
+  appSubtitle.textContent = `${platform.name} partner export`;
   loginBtn.textContent = `Open ${platform.name} Partner`;
 }
 
