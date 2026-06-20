@@ -3,10 +3,18 @@ import { exportSwiggyOrders } from "../lib/swiggy/handler.js";
 import { exportZomatoOrders } from "../lib/zomato/handler.js";
 import { ExportContext } from "../lib/export-context.js";
 import { resultFromError } from "../lib/user-errors.js";
+import { loadDebugSetting } from "../lib/logger.js";
 import { registerWebRequestCapture } from "./credentials.js";
 
 registerWebRequestCapture();
 void migrateStorage();
+void loadDebugSetting();
+
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (area === "local" && changes.settings) {
+    void loadDebugSetting();
+  }
+});
 
 let activeExportContext = null;
 
@@ -84,7 +92,6 @@ chrome.runtime.onConnect.addListener((port) => {
   });
 });
 
-// Legacy one-shot message (no progress / cancel).
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message.type === "FETCH_AND_EXPORT") {
     handleFetchAndExport(message)

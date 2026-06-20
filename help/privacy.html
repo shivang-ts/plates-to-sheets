@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plates to Sheets — Privacy Policy</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 24px;
+      color: #1a1a1a;
+      line-height: 1.6;
+    }
+    h1 { font-size: 20px; }
+    h2 { font-size: 15px; margin-top: 24px; }
+    p, li { font-size: 14px; }
+    .updated { font-size: 12px; color: #666; }
+  </style>
+</head>
+<body>
+  <h1>Privacy Policy — Plates to Sheets</h1>
+  <p class="updated">Last updated: 21 June 2026</p>
+
+  <p>
+    Plates to Sheets is a Chrome extension that helps restaurant partners export order history
+    from Swiggy Partner and Zomato Partner to CSV files on your device.
+  </p>
+
+  <h2>What we collect</h2>
+  <p>The extension stores the minimum data needed to call partner APIs on your behalf:</p>
+  <ul>
+    <li><strong>Swiggy:</strong> access token and restaurant ID (on your device only).</li>
+    <li><strong>Zomato:</strong> restaurant ID, CSRF tokens, and session auth token (browser session storage).</li>
+    <li><strong>Preferences:</strong> selected platform and optional debug setting.</li>
+  </ul>
+  <p>
+    We do <strong>not</strong> store full browser cookie strings. Session cookies are read from
+    Chrome at export time and are not uploaded elsewhere.
+  </p>
+
+  <h2>What we do not do</h2>
+  <ul>
+    <li>No analytics or tracking SDKs.</li>
+    <li>No data sent to servers operated by the extension author.</li>
+    <li>No sale or sharing of your order data with third parties.</li>
+  </ul>
+
+  <h2>Where data lives</h2>
+  <ul>
+    <li>Credentials and settings: <code>chrome.storage.local</code> on your computer.</li>
+    <li>Zomato session tokens: <code>chrome.storage.session</code> (cleared when the browser session ends).</li>
+    <li>Exported CSV files: saved via Chrome Downloads to a location you choose.</li>
+  </ul>
+
+  <h2>Third-party services</h2>
+  <p>
+    The extension communicates directly with Swiggy and Zomato partner APIs using your logged-in
+    browser session. Their privacy policies apply to data held on their platforms.
+  </p>
+
+  <h2>Permissions</h2>
+  <ul>
+    <li><strong>storage</strong> — save credentials and preferences locally.</li>
+    <li><strong>cookies</strong> — read Zomato session cookies at export time.</li>
+    <li><strong>webRequest</strong> — capture auth headers when you use the partner dashboard.</li>
+    <li><strong>tabs</strong> — open partner login and help pages.</li>
+    <li><strong>downloads</strong> — save CSV exports.</li>
+  </ul>
+
+  <h2>Data retention &amp; deletion</h2>
+  <p>
+    Click <strong>Clear credentials</strong> in the extension popup to remove stored tokens.
+    Uninstalling the extension removes extension storage. CSV files you downloaded remain on your disk.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    For privacy questions about this extension, open an issue on the project repository or contact
+    the maintainer listed on the Chrome Web Store listing.
+  </p>
+
+  <p class="updated">
+    Not affiliated with or endorsed by Swiggy or Zomato.
+  </p>
+</body>
+</html>

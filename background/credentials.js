@@ -1,12 +1,10 @@
 import {
   authTokenFromCookieHeader,
-  isValidZomatoResId,
-  normalizeResId,
   parseResIdFromAuthToken,
   resIdFromRequestBody,
-  resolveZomatoResId,
 } from "../lib/zomato/res-id.js";
 import { saveCredentials as persistCredentials } from "../lib/storage.js";
+import { debugLog } from "../lib/logger.js";
 
 function parseRequestBody(details) {
   if (!details.requestBody?.raw?.length) return null;
@@ -39,15 +37,12 @@ function restaurantIdFromSwiggyBody(bodyText) {
   return null;
 }
 
-function resIdFromZomatoBody(bodyText) {
-  return resIdFromRequestBody(bodyText);
-}
-
-function buildZomatoPartial(cookieHeader, csrf, mxCsrf, authToken) {
+function buildZomatoPartial(cookieHeader, csrf, mxCsrf) {
   const partial = {};
-  if (cookieHeader) partial.cookieHeader = cookieHeader;
   if (csrf) partial.csrf = csrf;
   if (mxCsrf) partial.mxCsrf = mxCsrf;
+
+  const authToken = authTokenFromCookieHeader(cookieHeader);
   if (authToken) partial.authToken = authToken;
 
   const resIdFromJwt = parseResIdFromAuthToken(authToken);
@@ -63,24 +58,25 @@ export function registerWebRequestCapture() {
         || headerValue(details.requestHeaders, "accesstoken");
       if (token) {
         void persistCredentials("swiggy", { accessToken: token });
+        debugLog("[SwiggyOrders]", "Captured access token via webRequest");
       }
 
       if (details.url.includes("api.zomato.com")) {
         const cookieHeader = headerValue(details.requestHeaders, "cookie");
         const csrf = headerValue(details.requestHeaders, "x-zomato-csrft");
         const mxCsrf = headerValue(details.requestHeaders, "x-zomato-mx-csrf-token");
-        const authToken = authTokenFromCookieHeader(cookieHeader);
-        const partial = buildZomatoPartial(cookieHeader, csrf, mxCsrf, authToken);
+        const partial = buildZomatoPartial(cookieHeader, csrf, mxCsrf);
 
         if (Object.keys(partial).length > 0) {
           void persistCredentials("zomato", partial);
+          debugLog("[ZomatoOrders]", "Captured Zomato session fields:", Object.keys(partial).join(", "));
         }
       }
     },
     {
       urls: [
         "https://rms.swiggy.com/*",
-        "https://*.swiggy.com/*",
+        "https://partner.swiggy.com/*",
         "https://api.zomato.com/*",
       ],
     },
@@ -96,13 +92,15 @@ export function registerWebRequestCapture() {
         const restaurantId = restaurantIdFromSwiggyBody(bodyText);
         if (restaurantId) {
           void persistCredentials("swiggy", { restaurantId });
+          debugLog("[SwiggyOrders]", "Captured restaurantId via webRequest");
         }
       }
 
       if (details.url.includes("api.zomato.com")) {
-        const resId = resIdFromZomatoBody(bodyText);
+        const resId = resIdFromRequestBody(bodyText);
         if (resId) {
           void persistCredentials("zomato", { resId });
+          debugLog("[ZomatoOrders]", "Captured resId via webRequest");
         }
       }
     },

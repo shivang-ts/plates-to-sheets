@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Plates to Sheets",
-  "version": "2.2.2",
-  "description": "Export Swiggy & Zomato partner order history from plates to spreadsheets (CSV)",
+  "version": "3.0.0",
+  "description": "Export Swiggy & Zomato partner order history from plates to spreadsheets (CSV). Privacy: help/privacy.html",
   "icons": {
     "16": "icons/icon-16.png",
     "48": "icons/icon-48.png",
@@ -14,7 +14,6 @@
     "https://rms.swiggy.com/*",
     "https://www.zomato.com/*",
     "https://zomato.com/*",
-    "http://zomato.com/*",
     "https://api.zomato.com/*"
   ],
   "action": {
@@ -40,14 +39,13 @@
     {
       "matches": ["https://partner.swiggy.com/*"],
       "js": ["content/swiggy-content.js"],
-      "run_at": "document_start"
+      "run_at": "document_start",
+      "type": "module"
     },
     {
       "matches": [
         "https://www.zomato.com/*",
-        "https://zomato.com/*",
-        "http://zomato.com/*",
-        "http://www.zomato.com/*"
+        "https://zomato.com/*"
       ],
       "js": ["content/zomato-injected.js"],
       "run_at": "document_start",
@@ -56,12 +54,11 @@
     {
       "matches": [
         "https://www.zomato.com/*",
-        "https://zomato.com/*",
-        "http://zomato.com/*",
-        "http://www.zomato.com/*"
+        "https://zomato.com/*"
       ],
       "js": ["content/zomato-content.js"],
-      "run_at": "document_start"
+      "run_at": "document_start",
+      "type": "module"
     }
   ]
 }

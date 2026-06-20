@@ -29,6 +29,7 @@ const restaurantInfo = document.getElementById("restaurant-info");
 const fetchBtn = document.getElementById("fetch-btn");
 const logoutBtn = document.getElementById("logout-btn");
 const helpBtn = document.getElementById("help-btn");
+const privacyBtn = document.getElementById("privacy-btn");
 const exportProgress = document.getElementById("export-progress");
 const exportProgressText = document.getElementById("export-progress-text");
 const exportProgressBar = document.getElementById("export-progress-bar");
@@ -169,7 +170,7 @@ function setAuthUI(creds = {}) {
   const partial =
     currentPlatform === "swiggy"
       ? Boolean(creds.accessToken || creds.restaurantId)
-      : Boolean(creds.resId || creds.authToken || creds.cookieHeader);
+      : Boolean(creds.resId || creds.authToken || creds.csrf || creds.mxCsrf);
 
   loginBtn.disabled = false;
 
@@ -181,7 +182,7 @@ function setAuthUI(creds = {}) {
     restaurantInfo.textContent =
       currentPlatform === "swiggy"
         ? `Restaurant ID: ${creds.restaurantId}`
-        : `Restaurant ID: ${resolveZomatoResId(creds, creds.cookieHeader) ?? creds.resId ?? "unknown"}`;
+        : `Restaurant ID: ${resolveZomatoResId(creds, "") ?? creds.resId ?? "unknown"}`;
   } else if (partial) {
     authStatus.className = "status status--logged-out";
     authStatusText.textContent = "Partial credentials captured";
@@ -341,6 +342,10 @@ helpBtn.addEventListener("click", () => {
   chrome.tabs.create({ url: chrome.runtime.getURL("help/help.html") });
 });
 
+privacyBtn.addEventListener("click", () => {
+  chrome.tabs.create({ url: chrome.runtime.getURL("help/privacy.html") });
+});
+
 cancelExportBtn.addEventListener("click", () => {
   if (exportPort) {
     exportPort.postMessage({ type: "CANCEL" });
@@ -391,11 +396,6 @@ fetchBtn.addEventListener("click", async () => {
   try {
     const response = await done;
 
-    if (response?.apiResponse) {
-      const prefix = getPlatform(currentPlatform).logPrefix;
-      console.log(`[${prefix}] API response:`, response.apiResponse);
-    }
-
     if (response?.cancelled) {
       showMessage("Export cancelled.", "info");
       return;
@@ -425,8 +425,11 @@ fetchBtn.addEventListener("click", async () => {
 });
 
 chrome.storage.onChanged.addListener((changes, area) => {
-  if (area !== "local" || !currentPlatform) return;
-  if (changes.credentials || changes.selectedPlatform) {
+  if (!currentPlatform) return;
+  if (
+    (area === "local" && (changes.credentials || changes.selectedPlatform)) ||
+    (area === "session" && changes.credentialSession)
+  ) {
     void loadAuthState();
   }
 });
