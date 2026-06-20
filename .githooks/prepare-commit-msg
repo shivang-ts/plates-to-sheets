@@ -1,0 +1,5 @@
+#!/bin/sh
+# Remove Cursor agent attribution if it is injected into commit messages.
+if [ -n "$1" ] && [ -f "$1" ]; then
+  grep -v -e 'cursoragent@cursor\.com' -e '^Co-authored-by: Cursor' "$1" > "$1.tmp" && mv "$1.tmp" "$1"
+fi
