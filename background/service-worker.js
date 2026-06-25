@@ -1,4 +1,4 @@
-import { migrateStorage, getSelectedPlatform } from "../lib/storage.js";
+import { migrateStorage, getSelectedPlatform, saveCredentials } from "../lib/storage.js";
 import { exportSwiggyOrders } from "../lib/swiggy/handler.js";
 import { exportZomatoOrders } from "../lib/zomato/handler.js";
 import { ExportContext } from "../lib/export-context.js";
@@ -93,6 +93,18 @@ chrome.runtime.onConnect.addListener((port) => {
 });
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+  if (message.type === "SAVE_CREDENTIALS") {
+    const { platform, creds } = message;
+    if (platform && creds && typeof creds === "object") {
+      saveCredentials(platform, creds)
+        .then(() => sendResponse({ ok: true }))
+        .catch((err) => sendResponse({ ok: false, error: err.message }));
+      return true;
+    }
+    sendResponse({ ok: false, error: "Invalid payload" });
+    return true;
+  }
+
   if (message.type === "FETCH_AND_EXPORT") {
     handleFetchAndExport(message)
       .then(sendResponse)
