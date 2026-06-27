@@ -50,7 +50,10 @@ describe("mapZomatoDetailToSwiggyOrder", () => {
     const mapped = mapZomatoDetailToSwiggyOrder(detail);
     assert.equal(mapped.order_id, "8259494155");
     assert.equal(mapped.delivery_boy.name, "Anish Kumar");
-    assert.equal(mapped.status.pickedup_time, "2026-06-20T18:18:06Z");
+    assert.equal(mapped.status.ordered_time, "2026-06-20T23:25:40");
+    assert.equal(mapped.status.placed_time, "2026-06-20T23:25:55");
+    assert.equal(mapped.status.pickedup_time, "2026-06-20T23:48:06");
+    assert.equal(mapped.status.delivered_time, "2026-06-21T00:10:09");
     assert.equal(mapped.customer_distance, "6");
     assert.equal(mapped.cart.items[0].customisations[0].name, '10" (6 Slices)');
   });
