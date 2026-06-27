@@ -18,8 +18,12 @@ credentials.json
 *.log
 npm-debug.log*
 
-# Dependencies (if added later)
+# Dependencies
 node_modules/
+
+# Store upload zip (regenerate with npm run pack)
+dist/
+store/screenshots/.tmp/
 
 # Cursor / local tooling
 .cursor/

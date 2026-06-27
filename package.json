@@ -3,6 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test test/**/*.test.js"
+    "test": "node --test test/**/*.test.js",
+    "pack": "node scripts/pack.js",
+    "screenshots": "node scripts/generate-screenshots.mjs",
+    "prepare-store": "npm test && npm run pack && npm run screenshots"
+  },
+  "devDependencies": {
+    "puppeteer": "^24.11.2"
   }
 }

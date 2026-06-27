@@ -2,7 +2,7 @@
 
 Chrome extension to export order history from **Swiggy Partner** and **Zomato Partner** to CSV — from plates to spreadsheets.
 
-**Version 3.0.0** — production-hardened build with privacy policy, gated debug logs, session-scoped Zomato tokens, and CI tests.
+**Version 3.0.1** — production-hardened build with privacy policy, gated debug logs, session-scoped Zomato tokens, and CI tests.
 
 ## Install
 
@@ -34,7 +34,7 @@ Defaults to **today only**; widen start/end dates in the popup as needed.
 - **No full cookie strings stored** — Zomato cookies are read via `chrome.cookies` at export time only.
 - **Zomato session tokens** (`csrf`, `mxCsrf`, `authToken`) live in `chrome.storage.session` and clear when the browser session ends.
 - **Swiggy** `accessToken` + `restaurantId` persist in `chrome.storage.local` (required across restarts).
-- See [help/privacy.html](help/privacy.html) for the full privacy policy.
+- Public privacy policy: https://shivang-ts.github.io/plates-to-sheets/privacy.html (in-extension copy: [help/privacy.html](help/privacy.html)).
 
 ## Debug logging
 
@@ -46,8 +46,13 @@ Off by default. To enable verbose logs in the service worker:
 ## Development
 
 ```bash
-npm test          # unit tests (Node 18+)
+npm test              # unit tests (Node 18+)
+npm run pack          # dist/plates-to-sheets.zip for Chrome Web Store upload
+npm run screenshots   # store/screenshots/*.png for listing assets
+npm run prepare-store # test + pack + screenshots
 ```
+
+Chrome Web Store listing copy and field values: [store/LISTING.md](store/LISTING.md).
 
 CI runs on push/PR to `main` via GitHub Actions.
 
